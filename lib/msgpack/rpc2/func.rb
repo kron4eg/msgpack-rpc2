@@ -1,16 +1,23 @@
 module Msgpack
   module Rpc2
     class Func
-      def initialize(addr, name, args)
-        @addr, @name, @args = addr, name, args
+      def initialize(conn, name, args)
+        @conn, @name, @args = conn, name, args
       end
 
       def call(*args)
-        [0, @name, @args + args]
+        msg = serialize([0, @name, @args + args])
+        @conn.write(msg)
       end
 
       def notify(*args)
-        [2, @name, @args + args]
+        msg = serialize([2, @name, @args + args])
+        @conn.write(msg)
+      end
+
+      private
+      def serialize(what)
+        MessagePack.pack(what)
       end
     end
   end

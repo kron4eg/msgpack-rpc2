@@ -1,6 +1,6 @@
 require 'msgpack/rpc2'
 
-conn = Msgpack::Rpc2::ConnectionPool.for("127.0.0.1", 1234) # => #<TCPSocket:fd 5>
+conn = Msgpack::Rpc2::ConnectionPool.for("127.0.0.1", 1234) # => #<Msgpack::Rpc2::Connection:0x00000001c913b8 @addr="127.0.0.1", @port=1234>
 client = Msgpack::Rpc2::Client.new(conn)
 
 sum = client.func("sum")

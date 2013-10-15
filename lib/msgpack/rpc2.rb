@@ -10,3 +10,4 @@ end
 require 'msgpack/rpc2/func'
 require 'msgpack/rpc2/client'
 require 'msgpack/rpc2/connection_pool'
+require 'msgpack/rpc2/connection'

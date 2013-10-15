@@ -1,16 +1,18 @@
 module Msgpack
   module Rpc2
     class Client
-      def initialize(addr, namespace=nil)
-        @addr, @namespace = addr, namespace
+      attr_accessor :namespace
+
+      def initialize(conn, namespace=nil)
+        @conn, @namespace = conn, namespace
       end
 
       def func(name="", *args)
-        Msgpack::Rpc2::Func.new(@addr, _namespace(name), args)
+        Msgpack::Rpc2::Func.new(@conn, _namespace(name), args)
       end
 
       def namespace(name="")
-        self.class.new(@addr, _namespace(name))
+        self.dup.tap {|o| o.namespace = _namespace(name) }
       end
 
       private
